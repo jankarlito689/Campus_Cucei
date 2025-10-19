@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
 
 export const zonas =[
     {id: "rectoria", style: styles.rectoriaZone},
-    {id: "biblioteca", style: styles.bibliotecaZone},
+    {id: "bibloteca", style: styles.bibliotecaZone},
     {id: "quimica", style: styles.quimicaZone},
     {id: "moduloY", style: styles.moduloYZone},
     {id: "moduloV", style: styles.moduloVZone},
