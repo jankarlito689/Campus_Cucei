@@ -12,6 +12,9 @@ export async function login(codigo, nip) {
         }
         return data;
     } catch (error){
+        if(error.message && !error.response && !error.request){
+            throw error;
+        }
         if(error.response){
             //Error dek servidor 
             throw new Error(error.response.data.message || "Error de autenticacion")
@@ -19,7 +22,7 @@ export async function login(codigo, nip) {
             //Error de red
             throw new Error("NO se pude conectar al servidor")
         }else{
-            throw new Error("Error interno en la aplicacion")
+            throw new Error("Error interno del app")
         }
     }
 }
