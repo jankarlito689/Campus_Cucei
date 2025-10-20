@@ -5,7 +5,12 @@ export async function login(codigo, nip) {
         const response = await apiCucei.get("auth.php",{
             params:{ codigo,nip}
         })
-        return response.data;
+        const data = response.data;
+        //validamos la informacion que nos llega
+        if (data.message || !data.codigo){
+            throw new Error(data.message || "Credenciales invalidas");
+        }
+        return data;
     } catch (error){
         if(error.response){
             //Error dek servidor 
