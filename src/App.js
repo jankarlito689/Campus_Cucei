@@ -1,20 +1,21 @@
+import { LoginScreen } from "./Screen/Login";
 import MAPA from "./Screen/Mapa";
-import { useEffect } from "react";
-import { login } from "./Services/Auth/authService";
+import { AuthProvider } from "./Handler/Auth/authProvider";
+import { useAuth } from "./Hooks/useAuth";
+
+function Main(){
+  const { user } = useAuth();
+  if (user) console.log("✅ Usuario autenticado:", user);
+
+  return user ? <MAPA /> : <LoginScreen />
+}
 
 export default function App() {
-  useEffect (() => {
-    (async () =>{
-      try{
-        const data = await login("423037742", "cesar110");
-        console.log("Usuario autenticado:", data);
-      } catch (error){
-        console.log("Error:", error.message)
-      }
-    })();
-  }, [])
   return (
-    <MAPA />
+    <AuthProvider>
+      <Main />
+    </AuthProvider>
   );
 }
+
 
