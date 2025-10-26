@@ -1,8 +1,10 @@
 //layout de login
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { Boton } from "../../Componetes/boton";
+import { useState } from "react";
 
 export function LoginLayout({ codigo, nip, onCodigoChange, onPasswordChange, onSubmit, error }) {
+    const [showPassword, setShowPassword] = useState(false);
 return (
     <View style={styles.container}>
         <Text style={styles.title}>Iniciar sesión</Text>
@@ -12,13 +14,20 @@ return (
             value={codigo}
             onChangeText={onCodigoChange}
         />
-        <TextInput
-            style={styles.input}
-            placeholder="Contraseña"
-            secureTextEntry
-            value={nip}
-            onChangeText={onPasswordChange}
-        />
+        <View style={styles.passwordContainer}>
+            <TextInput
+                style={[styles.input, { flex: 1 }]}
+                placeholder="Contraseña"
+                secureTextEntry={!showPassword}
+                value={nip}
+                onChangeText={onPasswordChange}
+            />
+            <Pressable onPress={() => setShowPassword(!showPassword)} style={styles.toggle}>
+                <Text style={{ color: "#2563eb", fontWeight: "bold" }}>
+                    {showPassword ? "Ocultar" : "Ver"}
+                </Text>
+            </Pressable>
+        </View>
         {error ? <Text style={styles.error}>{error}</Text> : null}
         <Boton 
             title="Entrar"
@@ -34,4 +43,6 @@ const styles = StyleSheet.create({
     title: { fontSize: 24, textAlign: "center", marginBottom: 20 },
     input: { borderWidth: 1, borderRadius: 8, padding: 10, marginBottom: 10 },
     error: { color: "red", textAlign: "center" },
+    passwordContainer: { flexDirection: "row", alignItems: "center" },
+    toggle: { marginLeft: 10 },
 });
