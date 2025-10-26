@@ -12,9 +12,15 @@ export function AuthProvider({ children }){
 
     //Inicia sesion y gurada los datos de usuario
     async function signIn( codigo, nip) {
-        const data = await login(codigo, nip);
-        setUser(data);
-        await AsyncStorage.setItem("userData", JSON.stringify(data))
+        try{
+            const data = await login(codigo, nip);
+            // VERIFICA que data sea un objeto y no contenga strings problemáticos
+            //console.log("Datos de login:", data);
+            setUser(data);
+            await AsyncStorage.setItem("userData", JSON.stringify(data))
+        }catch(error){
+            console.error("Error en signIn:", error);
+        }
     }
 
     //Cerrar sesió y borra la informacion
@@ -26,8 +32,16 @@ export function AuthProvider({ children }){
     //Cargar sesion almacenada
     useEffect(() =>{
         const loadUser = async () =>{
-            const stored = await AsyncStorage.getItem("userData")
-            if(stored) setUser(JSON.parse(stored));
+            try{
+                const stored = await AsyncStorage.getItem("userData")
+                if(stored){
+                    const userData = JSON.parse(stored);
+                    console.log("Datos cargados:", userData);
+                    setUser(userData);
+                }
+                }catch (error){
+                    console.error("Error cargando usuario:", error);
+            }
         }
         loadUser();
     }, []);
