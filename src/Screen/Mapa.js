@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { Boton } from '../Componetes/boton';
+import { useAuth } from '../Hooks/useAuth';
 //Importamos la zona interactiva
 import { ZonaInteractiva } from '../Componetes/zonaInteractiva';
 import { ModalHandle } from '../Handler/modalHandle';
@@ -8,9 +10,17 @@ import { zonas } from '../Services/zonaService';
 export default function Map() {
   // Estado que guarda qué módulo está activo
   const [activo, setActivo] = useState(null);
+
+  const{ signOut } = useAuth();
   return (
     <View style={styles.screen}>
       <Text style={styles.titulo}>Mapa</Text>
+
+      <Boton 
+        title='Cerrar sesion'
+        color='#b91c1c'
+        onPress={signOut}
+      />
       {/* CONTENEDOR DEL MAPA */}
       <View style={styles.mapContainer}>
         <Image
