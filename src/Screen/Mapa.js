@@ -7,7 +7,7 @@ import { ZonaInteractiva } from '../Componetes/zonaInteractiva';
 import { ModalHandle } from '../Handler/modalHandle';
 import { zonas } from '../Services/zonaService';
 
-export default function Map() {
+export function Mapa() {
   // Estado que guarda qué módulo está activo
   const [activo, setActivo] = useState(null);
 
