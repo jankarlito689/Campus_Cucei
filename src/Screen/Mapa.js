@@ -7,7 +7,7 @@ import { ZonaInteractiva } from '../Componetes/zonaInteractiva';
 import { ModalHandle } from '../Handler/modalHandle';
 import { zonas } from '../Services/zonaService';
 
-export function Mapa() {
+export function Mapa({ onBack }) {
   // Estado que guarda qué módulo está activo
   const [activo, setActivo] = useState(null);
 
@@ -17,9 +17,9 @@ export function Mapa() {
       <Text style={styles.titulo}>Mapa</Text>
 
       <Boton 
-        title='Cerrar sesion'
-        color='#b91c1c'
-        onPress={signOut}
+        title='Volver a menu'
+        color='#115688ff'
+        onPress={onBack}
       />
       {/* CONTENEDOR DEL MAPA */}
       <View style={styles.mapContainer}>
