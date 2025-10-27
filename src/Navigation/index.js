@@ -4,19 +4,25 @@ import { LoginScreen } from "../Screen/Login";
 import { Mapa } from "../Screen/Mapa";
 import { MenuScreen } from "../Screen/Menu";
 
+//rutas que va a usar Navigate
+const Routes ={
+    Menu: "menu",
+    Mapa: "mapa"
+}
+
 export function Navigation(){
     const { user, signOut } = useAuth();
-    const [route, setRoute] = useState("menu")
+    const [route, setRoute] = useState(Routes.Menu)
 
     if (!user){
         return <LoginScreen/>
     }
     console.log("✅ Usuario autenticado:", user);
     switch (route){
-        case "menu":
+        case Routes.Menu:
             return <MenuScreen onNavigate={setRoute} onLogout={signOut}/>
-        case "mapa":
-            return <Mapa onBack={() => setRoute("menu")} />
+        case Routes.Mapa:
+            return <Mapa onBack={() => setRoute(Routes.Menu)} />
         default:
             return <MenuScreen onNavigate={setRoute} onLogout={signOut}/>
     }
