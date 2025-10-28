@@ -3,11 +3,13 @@ import { useState } from "react";
 import { LoginScreen } from "../Screen/Login";
 import { Mapa } from "../Screen/Mapa";
 import { MenuScreen } from "../Screen/Menu";
+import { AlumnoScreen } from "../Screen/Alumno";
 
 //rutas que va a usar Navigate
 const Routes ={
     Menu: "menu",
-    Mapa: "mapa"
+    Mapa: "mapa",
+    Alumno: "alumno"
 }
 
 export function Navigation(){
@@ -23,6 +25,8 @@ export function Navigation(){
             return <MenuScreen onNavigate={setRoute} onLogout={signOut}/>
         case Routes.Mapa:
             return <Mapa onBack={() => setRoute(Routes.Menu)} />
+        case Routes.Alumno:
+            return <AlumnoScreen onBack={() => setRoute(Routes.Menu)} />
         default:
             return <MenuScreen onNavigate={setRoute} onLogout={signOut}/>
     }
