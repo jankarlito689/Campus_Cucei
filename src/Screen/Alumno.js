@@ -1,10 +1,10 @@
 import { AlumnoLayout } from "../layout/Usuario/alumnoLayout";
 import { useAuth } from "../Hooks/useAuth";
 
-export function AlumnoScreen(){
+export function AlumnoScreen({onBack}){
     const { user } = useAuth();
 
     return(
-        <AlumnoLayout user={user}/>
+        <AlumnoLayout user={user} onBack={onBack}/>
     )
 }
