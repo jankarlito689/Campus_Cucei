@@ -18,23 +18,23 @@ export async function login(codigo, nip) {
             }
         }
         //console.log("🔍 Respuesta completa del servidor:", raw);
+
         //validamos la informacion que nos llega
-        if (!raw || !raw.codigo){
+        if (!raw || typeof raw !== "object" || !raw.codigo){
             throw new Error("Credenciales invalidas");
         }
         return raw;
     } catch (error){
-        if(error.message && !error.response && !error.request){
-            throw error;
-        }
-        if(error.response){
-            //Error dek servidor 
-            throw new Error(error.response.data.message || "Error de autenticacion")
-        }else if (error.request){
-            //Error de red
-            throw new Error("NO se pude conectar al servidor")
-        }else{
-            throw new Error("Error interno del app")
+        console.error(" Error en login:", error);
+         // Captura errores específicos y lanza mensaje legible
+        if (error.message.includes("timeout")) {
+        throw new Error("Tiempo de espera agotado. Verifica tu conexión.");
+        } else if (error.raw?.status === 401) {
+        throw new Error("Código o NIP incorrectos.");
+        } else if (error.raw?.status >= 500) {
+        throw new Error("Error en el servidor. Intenta más tarde.");
+        } else {
+        throw new Error(error.message || "Error desconocido al iniciar sesión.");
         }
     }
 }

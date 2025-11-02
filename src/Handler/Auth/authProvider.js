@@ -9,24 +9,40 @@ export const AuthContext = createContext();
 //Proveedor del contexto
 export function AuthProvider({ children }){
     const [user, setUser] = useState(null);
+    const [ loading, setLoading ] = useState(true);
+    const [ error, setError ] = useState(null)
 
     //Inicia sesion y gurada los datos de usuario
     async function signIn( codigo, nip) {
         try{
+            setError(null);
+            setLoading(true);
+
             const data = await login(codigo, nip);
-            // VERIFICA que data sea un objeto y no contenga strings problemáticos
-            //console.log("Datos de login:", data);
+            if(!data || typeof data !== "object"){
+                throw new Error("Los datos de usuario no son válidos.")
+            }
+            
             setUser(data);
             await AsyncStorage.setItem("userData", JSON.stringify(data))
+            console.log("✅ Sesion iniciada correctamente.");
         }catch(error){
             console.error("Error en signIn:", error);
+            setError(error.message || "Error al iniciar sesion");
+        }finally{
+            setLoading(false);
         }
     }
 
     //Cerrar sesió y borra la informacion
     async function signOut() {
-        setUser(null);
-        await AsyncStorage.removeItem("userData")
+        try{
+            await AsyncStorage.removeItem("userData");
+            setUser(null);
+            console.log("Sesion cerrada correctamente.");
+        }catch(error){
+            console.error("Error cerrando sesion:", error);
+        }
     }
 
     //Cargar sesion almacenada
@@ -35,18 +51,25 @@ export function AuthProvider({ children }){
             try{
                 const stored = await AsyncStorage.getItem("userData")
                 if(stored){
-                    const userData = JSON.parse(stored);
-                    console.log("Datos cargados:", userData);
-                    setUser(userData);
+                    try{
+                        const userData = JSON.parse(stored);
+                        setUser(userData);
+                        console.log("Datos cargados:", userData.nombre);
+                    }catch{
+                        console.warn("⚠️ Datos corruptos eliminados de AsyncStorage")
+                        await AsyncStorage.removeItem("userData");
+                    }
                 }
-                }catch (error){
-                    console.error("Error cargando usuario:", error);
+            }catch (error){
+                console.error("Error cargando usuario:", error);
+            }finally{
+                setLoading(false);
             }
         }
         loadUser();
     }, []);
     return(
-        <AuthContext.Provider value={{user, signIn,signOut}}>
+        <AuthContext.Provider value={{user, signIn,signOut, loading, error}}>
             {children}
         </AuthContext.Provider>
     )
