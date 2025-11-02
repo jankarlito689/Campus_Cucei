@@ -13,8 +13,17 @@ export function LoginScreen(){
 
     //handle de ejecucion
     const handleLogin = async () => {
-        if(!codigo || !nip){
+        //Agregamos validacion
+        if(!codigo.trim() && !nip.trim()){
             alert("Por favor ingresar tu codigo y nip");
+            return;
+        }
+        if(!codigo.trim()){
+            alert("El campo codigo no puede estar vacio.");
+            return;
+        }
+        if(!nip.trim()){
+            alert("El campo NIP no puede estar vacio.");
             return;
         }
         await signIn(codigo, nip);
