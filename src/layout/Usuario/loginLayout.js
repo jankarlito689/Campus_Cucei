@@ -17,7 +17,7 @@ export function LoginLayout({
     <View style={styles.container}>
       {/* Encabezado */}
       <View style={styles.header}>
-        <Text style={styles.title}>Portal CUCEI</Text>
+        <Text style={styles.title}>Campus CUCEI</Text>
         <Text style={styles.subtitle}>Iniciar sesión</Text>
       </View>
 
