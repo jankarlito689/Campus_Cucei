@@ -36,7 +36,7 @@ export function LoginLayout({
       <View style={styles.passwordContainer}>
         <TextInput
           style={[styles.input, { flex: 1 }, disabled && styles.disabledInput]}
-          placeholder="Contraseña"
+          placeholder="NIP del alumno"
           secureTextEntry={!showPassword}
           value={nip}
           onChangeText={onPasswordChange}
