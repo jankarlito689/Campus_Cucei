@@ -17,24 +17,27 @@ export async function login(codigo, nip) {
                 raw = JSON.parts(raw)
             }
         }
-        //console.log("🔍 Respuesta completa del servidor:", raw);
-
+        
         //validamos la informacion que nos llega
+        if(raw?.error){
+            throw new Error(raw.error);
+        }
+        console.log("🔍 Respuesta completa del servidor:", raw);
         if (!raw || typeof raw !== "object" || !raw.codigo){
-            throw new Error("Credenciales invalidas");
+            throw new Error("Credenciales invalidas. Verfica tu Codigo y tu NIP");
         }
         return raw;
     } catch (error){
         console.error(" Error en login:", error);
          // Captura errores específicos y lanza mensaje legible
         if (error.message.includes("timeout")) {
-        throw new Error("Tiempo de espera agotado. Verifica tu conexión.");
+            throw new Error("Tiempo de espera agotado. Verifica tu conexión.");
         } else if (error.raw?.status === 401) {
-        throw new Error("Código o NIP incorrectos.");
+            throw new Error("Código o NIP incorrectos.");
         } else if (error.raw?.status >= 500) {
-        throw new Error("Error en el servidor. Intenta más tarde.");
+            throw new Error("Error en el servidor. Intenta más tarde.");
         } else {
-        throw new Error(error.message || "Error desconocido al iniciar sesión.");
+            throw new Error(error.message || "Error desconocido al iniciar sesión.");
         }
     }
 }
