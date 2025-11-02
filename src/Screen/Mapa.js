@@ -11,7 +11,6 @@ export function Mapa({ onBack }) {
   // Estado que guarda qué módulo está activo
   const [activo, setActivo] = useState(null);
 
-  const{ signOut } = useAuth();
   return (
     <View style={styles.screen}>
       <Text style={styles.titulo}>Mapa</Text>
