@@ -19,7 +19,8 @@ export function Navigation(){
     if (!user){
         return <LoginScreen/>
     }
-    console.log("✅ Usuario autenticado:", user);
+    // VERIFICA que data sea un objeto y no contenga strings problemáticos
+    //console.log("Datos de login:", user);
     switch (route){
         case Routes.Menu:
             return <MenuScreen onNavigate={setRoute} onLogout={signOut}/>
