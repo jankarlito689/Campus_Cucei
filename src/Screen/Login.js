@@ -7,23 +7,17 @@ export function LoginScreen(){
     //Estados de los campos
     const [codigo, setCodigo] = useState("");
     const [nip, setNip] = useState("");
-    const [error, setError] = useState("");
 
     //Usamos las funciones de autenticacion
-    const { signIn } = useAuth();
+    const { signIn, loading, error } = useAuth();
 
     //handle de ejecucion
     const handleLogin = async () => {
-        setError("");
         if(!codigo || !nip){
-            setError("Por favor ingresar tu codigo y nip");
+            alert("Por favor ingresar tu codigo y nip");
             return;
         }
-        try{
-            await signIn(codigo, nip); //Se conecta con el servidor de cucei
-        }catch(err){
-            setError(err.message || "Error al iniciarl sesion");
-        }
+        await signIn(codigo, nip);
     }
     return(
         <LoginLayout
@@ -33,6 +27,7 @@ export function LoginScreen(){
             onPasswordChange={setNip}
             onSubmit={handleLogin}
             error={error}
+            disabled={loading}
         />
     )
 }
