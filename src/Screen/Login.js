@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LoginLayout } from "../layout/Usuario/loginLayout";
+import { LoginLayout } from "../layout/Usuario/Auth/loginLayout";
 import { useAuth } from "../Hooks/useAuth";
 
 //Funcion que renderiza el layout 
