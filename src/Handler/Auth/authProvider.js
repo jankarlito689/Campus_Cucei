@@ -25,7 +25,7 @@ export function AuthProvider({ children }){
             
             setUser(data);
             await AsyncStorage.setItem("userData", JSON.stringify(data))
-            console.log("✅ Sesion iniciada correctamente.", data);
+            console.log("✅ Sesion iniciada correctamente.", data.nombre);
         }catch(error){
             console.error("Error en signIn:", error);
             setError(error.message || "Error al iniciar sesion");
