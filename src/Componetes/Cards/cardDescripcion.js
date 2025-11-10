@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 
 // Componente para mostrar la descripción en una tarjeta
-export function CardDescripcion({ children, title }) {
+export function CardDescripcion({ children}) {
     return (
         <View style={[styles.card, styles]}>
             <Text style={styles.descripcion}>{children}</Text>
