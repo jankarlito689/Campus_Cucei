@@ -38,6 +38,7 @@ export function LoginScreen({onSuccess, onBack}) {
             onCodigoChange={setCodigo}
             onPasswordChange={setNip}
             onSubmit={handleLogin}
+            onBack={onBack}
             error={error}
             disabled={loading}
         />
