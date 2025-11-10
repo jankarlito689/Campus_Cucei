@@ -14,10 +14,9 @@ export async function login(codigo, nip) {
                 const extra = JSON.parse("{"+ parts[1]) //segundo objeto
                 raw ={ ...raw, ...extra};
             }else{
-                raw = JSON.parts(raw)
+                raw = JSON.parse(raw)
             }
         }
-        
         //validamos la informacion que nos llega
         if(raw?.error){
             throw new Error(raw.error);
