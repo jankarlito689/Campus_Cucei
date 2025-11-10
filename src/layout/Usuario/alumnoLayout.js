@@ -1,7 +1,7 @@
 import { ScrollView, View, Text, StyleSheet } from "react-native";
 import { Boton } from "../../Componetes/boton";
 
-export function AlumnoLayout({user, onBack}){
+export function AlumnoLayout({user, onBack, onLogout}){
     if(!user) return <Text>Cargando informacion del alumno...</Text>
 
     return(
@@ -67,6 +67,11 @@ export function AlumnoLayout({user, onBack}){
                         title="Volver al menú"
                         color="#115688"
                         onPress={onBack}
+                    />
+                    <Boton 
+                        title="Cerrar sesión" 
+                        color="#af0a0dff" 
+                        onPress={onLogout} 
                     />
                 </View>
         </View>
