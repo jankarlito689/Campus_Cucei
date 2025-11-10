@@ -20,14 +20,3 @@ export function ZonaInteractiva({id, setActivo, style}){
         />
     );
 }
-
-const style = StyleSheet.create({
-    zoneBase:{
-        borderWidth: 2,
-        borderRadius: 6,
-        position: 'absolute',
-    },
-    zonePressed:{
-        backgroundColor: 'rgba(0, 0, 0, 0.15)',
-    },
-});
