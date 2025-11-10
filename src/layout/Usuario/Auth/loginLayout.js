@@ -10,6 +10,7 @@ export function LoginLayout({
   onSubmit,
   error,
   disabled = false,
+  onBack,
 }) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -60,6 +61,14 @@ export function LoginLayout({
           color="#115688"
           onPress={!disabled ? onSubmit : null}
           disabled={disabled}
+        />
+      </View>
+      {/* Botón de regreso */}
+      <View style={styles.buttonContainer}>
+        <Boton
+          title={"Regresar al menú"}
+          color="#af0a0dff"
+          onPress={onBack}
         />
       </View>
 
