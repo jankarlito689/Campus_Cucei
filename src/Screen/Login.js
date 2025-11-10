@@ -3,13 +3,13 @@ import { LoginLayout } from "../layout/Usuario/Auth/loginLayout";
 import { useAuth } from "../Hooks/useAuth";
 
 //Funcion que renderiza el layout 
-export function LoginScreen(){
+export function LoginScreen({onSuccess, onBack}) {
     //Estados de los campos
     const [codigo, setCodigo] = useState("");
     const [nip, setNip] = useState("");
 
     //Usamos las funciones de autenticacion
-    const { signIn, loading, error } = useAuth();
+    const { signIn, loading, error, user } = useAuth();
 
     //handle de ejecucion
     const handleLogin = async () => {
@@ -26,7 +26,10 @@ export function LoginScreen(){
             alert("El campo NIP no puede estar vacio.");
             return;
         }
-        await signIn(codigo, nip);
+        const success = await signIn(codigo, nip);
+        if(success || user){
+            onSuccess?.();
+        }
     }
     return(
         <LoginLayout
