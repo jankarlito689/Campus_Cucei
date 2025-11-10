@@ -1,5 +1,4 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
-import { Boton } from "../Componetes/boton";
 
 export function MenuScreen({ onNavigate, onLogout }) {
     return (
@@ -14,13 +13,6 @@ export function MenuScreen({ onNavigate, onLogout }) {
             <Pressable style={styles.optionCard} onPress={() => onNavigate("alumno")}>
                 <Text style={styles.optionText}>Ver Alumno</Text>
             </Pressable>
-        </View>
-        <View>
-            <Boton
-                title="Cerrar sesión"
-                color="#115688ff"
-                onPress={onLogout}
-            />
         </View>
     </View>
     );
